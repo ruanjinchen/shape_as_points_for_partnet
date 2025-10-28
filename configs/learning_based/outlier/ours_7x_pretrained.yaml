@@ -1,4 +1,4 @@
-inherit_from: configs/learning_based/outlier/ours_7x/ours.yaml
+inherit_from: configs/learning_based/outlier/ours_7x.yaml
 generation:
   generation_dir: generation_pretrained
 test:

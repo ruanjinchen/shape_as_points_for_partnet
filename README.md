@@ -1,34 +1,33 @@
 # Shape As Points (SAP)
 
-### [**Paper**](https://arxiv.org/abs/2106.03452) | [**Project Page**](https://pengsongyou.github.io/sap) | [**Short Video (6 min)**](https://youtu.be/FL8LMk_qWb4) | [**Long Video (12 min)**](https://youtu.be/TgR0NvYty0A)  <br>
-
-![](./media/teaser_wheel.gif)
-
-This repository contains the implementation of the paper:
-
-Shape As Points: A Differentiable Poisson Solver  
-[Songyou Peng](https://pengsongyou.github.io/), [Chiyu "Max" Jiang](https://www.maxjiang.ml/), [Yiyi Liao](https://yiyiliao.github.io/), [Michael Niemeyer](https://m-niemeyer.github.io/), [Marc Pollefeys](https://www.inf.ethz.ch/personal/pomarc/) and [Andreas Geiger](http://www.cvlibs.net/)  
-**NeurIPS 2021 (Oral)**  
-
-
-If you find our code or paper useful, please consider citing
-```bibtex
-@inproceedings{Peng2021SAP,
- author    = {Peng, Songyou and Jiang, Chiyu "Max" and Liao, Yiyi and Niemeyer, Michael and Pollefeys, Marc and Geiger, Andreas},
- title     = {Shape As Points: A Differentiable Poisson Solver},
- booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
- year      = {2021}}
-```
-
 
 ## Installation
-First you have to make sure that you have all dependencies in place.
-The simplest way to do so, is to use [anaconda](https://www.anaconda.com/). 
 
-You can create an anaconda environment called `sap` using
 ```
-conda env create -f environment.yaml
-conda activate sap
+conda create -y -n shape python=3.12
+conda activate shape
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+
+conda install -y --override-channels --solver=libmamba \
+  -c nvidia/label/cuda-13.0.2 -c defaults \
+  cuda-toolkit=13.0.*
+
+pip install numpy matplotlib pyyaml scipy tqdm trimesh libigl tensorboard plyfile open3d scikit-image python-mnist opencv-python av pykdtree ipdb
+
+pip install --no-cache-dir torch-scatter \
+  -f https://data.pyg.org/whl/torch-2.8.0+cu128.html
+
+
+pip install --extra-index-url https://miropsota.github.io/torch_packages_builder \
+  "pytorch3d==0.7.8+pt2.8.0cu128"
+
+python - <<'PY'
+import torch, torch_scatter
+print("OK torch_scatter, torch =", torch.__version__)
+import pytorch3d
+from pytorch3d.loss import chamfer_distance
+print("OK pytorch3d")
+PY
 ```
 
 Next, you should install [PyTorch3D](https://pytorch3d.org/) (**>=0.5**) yourself from the [official instruction](https://github.com/facebookresearch/pytorch3d/blob/master/INSTALL.md#3-install-wheels-for-linux).  
