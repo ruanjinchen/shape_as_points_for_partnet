@@ -6,21 +6,23 @@
 ```
 conda create -y -n shape python=3.12
 conda activate shape
-pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+
+pip install torch==2.8.0 torchvision==0.23.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cu128
 
 conda install -y --override-channels --solver=libmamba \
-  -c nvidia/label/cuda-13.0.2 -c defaults \
-  cuda-toolkit=13.0.*
+  -c nvidia/label/cuda-12.8.1 -c defaults \
+  cuda-toolkit=12.8.*
 
 pip install numpy matplotlib pyyaml scipy tqdm trimesh libigl tensorboard plyfile open3d scikit-image python-mnist opencv-python av pykdtree ipdb
 
 pip install --no-cache-dir torch-scatter \
   -f https://data.pyg.org/whl/torch-2.8.0+cu128.html
 
-
 pip install --extra-index-url https://miropsota.github.io/torch_packages_builder \
   "pytorch3d==0.7.8+pt2.8.0cu128"
-
+```
+Check torch_scatter and pytorch3d
+```
 python - <<'PY'
 import torch, torch_scatter
 print("OK torch_scatter, torch =", torch.__version__)
@@ -28,13 +30,6 @@ import pytorch3d
 from pytorch3d.loss import chamfer_distance
 print("OK pytorch3d")
 PY
-```
-
-Next, you should install [PyTorch3D](https://pytorch3d.org/) (**>=0.5**) yourself from the [official instruction](https://github.com/facebookresearch/pytorch3d/blob/master/INSTALL.md#3-install-wheels-for-linux).  
-
-And install [PyTorch Scatter](https://github.com/rusty1s/pytorch_scatter):
-```sh
-conda install pytorch-scatter -c pyg
 ```
 
 
